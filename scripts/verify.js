@@ -1,0 +1,15 @@
+import fs from 'fs';
+const c = fs.readFileSync('index.html', 'utf-8');
+const rootIdx = c.indexOf('<div id="root">');
+const scriptIdx = c.indexOf('<script');
+const hasTypeModule = c.includes('type="module"');
+const fileKB = Math.round(c.length / 1024);
+console.log('File size KB:', fileKB);
+console.log('script before root div (bad):', scriptIdx < rootIdx && scriptIdx !== -1);
+console.log('has type=module (bad):', hasTypeModule);
+console.log('root div pos:', rootIdx);
+console.log('first script pos:', scriptIdx);
+console.log('\n--- around root div ---');
+console.log(c.substring(Math.max(0, rootIdx - 20), rootIdx + 80));
+console.log('\n--- around first script ---');
+console.log(c.substring(Math.max(0, scriptIdx - 20), scriptIdx + 80));
